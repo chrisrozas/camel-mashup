@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mashup id="accountBalanceMashup">
+
+	<cookiestore key="%logincbpass%"/>
+
+	<page method="POST" wait="3">
+		<url><![CDATA[https://services.carrefour-banque.fr/s2pnet/priv/disponible.do]]></url>     
+		<param name="loginCBPASS" value="%logincbpass%" />
+		
+		<extractor 
+		    clazz="org.apache.camel.processor.mashup.extractor.JsoupExtractor" 
+		    mandatory="true" id="c1"   >
+			<property name="query" >
+				<![CDATA[div[class=credithauttexte]]]>
+			</property>
+		</extractor>
+
+		<extractor clazz="org.apache.camel.processor.mashup.extractor.JsoupExtractor" mandatory="false" id="c2">
+			<property name="query" >
+				<![CDATA[td:contains(Encours) ~ td]]>
+			</property>
+		</extractor>
+
+		<extractor clazz="org.apache.camel.processor.mashup.extractor.JsoupExtractor" mandatory="false" id="2lastMonth1" >
+			<property name="query" >
+				<![CDATA[tr:contains(Vos achats des deux derniers mois) ~ tr]]>
+			</property>
+		</extractor>
+
+		<extractor clazz="org.apache.camel.processor.mashup.extractor.JsoupExtractor" mandatory="false" id="2lastMonth11">
+			<property name="query" >
+				<![CDATA[tr:contains(Vos achats des deux derniers mois) ~ tr ~ tr]]>
+			</property>
+		</extractor>
+
+
+		<extractor clazz="org.apache.camel.processor.mashup.extractor.JsoupExtractor" mandatory="false" id="pass2">
+			<property name="query" >
+				<![CDATA[td:contains(dit PASS) ~ td]]>
+			</property>
+		</extractor>
+
+		<extractor clazz="org.apache.camel.processor.mashup.extractor.JsoupExtractor" mandatory="false" id="pass22">
+			<property name="query" >
+				<![CDATA[td:contains(dit PASS) ~ td ~ td]]>
+			</property>
+		</extractor>
+
+		<extractor clazz="org.apache.camel.processor.mashup.extractor.JsoupExtractor" mandatory="false" id="Comptant1">
+			<property name="query" >
+				<![CDATA[td:contains(Comptant) ~ td]]>
+			</property>
+		</extractor>
+
+		<extractor clazz="org.apache.camel.processor.mashup.extractor.JsoupExtractor" mandatory="false" id="Comptant2">
+			<property name="query" >
+				<![CDATA[td:contains(Comptant) ~ td ~ td]]>
+			</property>
+		</extractor> 
+
+	</page>
+
+</mashup>

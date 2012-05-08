@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mashup id="scenario2">
+
+
+<cookiestore key="%logincbpass%"/>
+
+	<page method="POST">
+		<url><![CDATA[https://services.carrefour-banque.fr/s2pnet/priv/consult.do]]></url>
+        <param name="loginCBPASS" value="%logincbpass%"/>
+
+		<extractor 
+		    clazz="org.apache.camel.processor.mashup.extractor.JsoupExtractor" 
+		    mandatory="true" id="c1"   >
+			<property name="query" >
+				<![CDATA[div[class=credithauttexte]]]>
+			</property>
+		</extractor>
+	</page>
+</mashup>

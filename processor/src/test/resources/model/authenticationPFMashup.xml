@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mashup id="authenticationPFMashup">
+
+	
+	<cookiestore key="%logincbpass%" />
+
+
+	<page method="POST" wait="7" >
+		<url><![CDATA[https://services.carrefour-banque.fr/s2pnet/publ/identification.do]]></url>
+		<param name="loginCBPASS" value="%logincbpass%"/>
+		<param name="motPasse" value="%motpasse%"/>
+		<param name="testJS" value="%testjs%"/>
+		
+		<extractor id="authError"
+		clazz="org.apache.camel.processor.mashup.extractor.RegexExtractor"
+		mandatory="false" >
+			<property name="pattern"><![CDATA[.*avertissement\(document.identification.*\"(.*)\.\"\).*]]></property>
+		</extractor>
+	</page>
+
+
+	<page method="POST"  >
+		<url><![CDATA[https://services.carrefour-banque.fr/s2pnet/publ/login.do]]></url> 
+		<param name="loginCBPASS" value="%logincbpass%"/>
+		<extractor id="login" clazz="org.apache.camel.processor.mashup.extractor.RegexExtractor" mandatory="false">
+			<property name="pattern"><![CDATA[.*token..value=.(.*)../>.*nomcics.*]]></property>
+		</extractor>  
+
+		<extractor id="loginError"
+		clazz="org.apache.camel.processor.mashup.extractor.RegexExtractor"
+		mandatory="false">
+			<property name="pattern"><![CDATA[.*avertissement\(document.identification.*\"(.*)\.\"\).*]]></property>
+		</extractor>
+
+	</page>       
+
+</mashup>

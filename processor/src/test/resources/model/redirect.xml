@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mashup id="redirect">
+
+    	<page method="POST" wait="1">
+		
+		<url><![CDATA[http://www.yahoo.fr]]></url>
+		<extractor clazz="org.apache.camel.processor.mashup.extractor.JsoupExtractor"
+			mandatory="false" id="body">
+			<property name="query">
+				body
+			</property>
+		</extractor>
+
+	</page>
+
+</mashup>

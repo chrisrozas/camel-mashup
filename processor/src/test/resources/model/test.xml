@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mashup id="redirect">
+
+	<page method="POST" wait="5" >
+		<url><![CDATA[http://localhost:8080/AppStruts/waiting.jsp]]></url>
+		<extractor
+			clazz="org.apache.camel.processor.mashup.extractor.JsoupExtractor" mandatory="true">
+			<property name="query">
+			<![CDATA[meta[http-equiv=Refresh]]]>
+			</property>
+			<property name="preserveHtml">true</property>
+		</extractor>
+	</page>
+	
+	<page method="POST" wait="5" >
+		<url><![CDATA[http://localhost:8080/AppStruts/waiting.jsp]]></url>
+		<extractor
+			clazz="org.apache.camel.processor.mashup.extractor.JsoupExtractor" mandatory="true">
+			<property name="query">
+			<![CDATA[meta[http-equiv=Refresh]]]>
+			</property>
+			<property name="preserveHtml">true</property>
+		</extractor>
+	</page>
+	
+		<page method="POST">
+		<url><![CDATA[http://localhost:8080/AppStruts/waiting.jsp]]></url>
+		<extractor
+			clazz="org.apache.camel.processor.mashup.extractor.JsoupExtractor" id="body">
+			<property name="query">
+			<![CDATA[body]]>
+			</property>
+			<property name="preserveHtml">false</property>
+		</extractor>
+	</page>
+
+
+</mashup>

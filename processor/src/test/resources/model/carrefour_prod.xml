@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mashup id="carrefour_prod">
+
+	<cookiestore  key="%logincbpass%" />
+		
+	<page method="POST" wait="1">
+		<url><![CDATA[https://services.carrefour-banque.fr/s2pnet/publ/identification.do]]></url>
+		<param name="loginCBPASS" value="%logincbpass%" />
+		<param name="motPasse" value="%motpasse%" />
+		<param name="testJS" value="%testjs%" />
+	</page>
+
+
+	<page method="POST" wait="7" >
+		<url><![CDATA[https://services.carrefour-banque.fr/s2pnet/publ/login.do]]></url>
+		<param name="loginCBPASS" value="%logincbpass%" />
+		<extractor
+			clazz="org.apache.camel.processor.mashup.extractor.RegexExtractor"
+			mandatory="true" id="e1">
+			 <property name="pattern"><![CDATA[.*token..value=.(.*)../>.*nomcics.*]]></property>
+		</extractor>
+	</page>
+
+
+</mashup>
